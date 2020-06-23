@@ -11,3 +11,5 @@ message(STATUS "CMAKE_CXX_FLAGS = " ${CMAKE_CXX_FLAGS})
 #add_executable(MyServer main.cpp)
 
 add_subdirectory(log/tests)
+add_subdirectory(threadpool/tests)
+add_subdirectory(timer/tests)
