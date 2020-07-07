@@ -27,8 +27,7 @@ public:
         {
             PR_ERROR("max_size is illegal!\n");
            // exit(-1);
-           invalid_argument ex("max_size is illegal!");
-           throw exception(ex);
+           throw invalid_argument("max_size is illegal!");
         }
 
         b_debug = debug;

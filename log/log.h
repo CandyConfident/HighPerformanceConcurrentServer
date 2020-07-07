@@ -9,6 +9,8 @@
 #include <thread>
 #include <mutex>
 #include <assert.h>
+#include <atomic>
+
 #include "log_queue.h"
 #include "pr.h"
 
@@ -50,7 +52,7 @@ public:
         return l_inited;
     }
 
-    void write_log(const char* file_name, const char* func_name, int line_no, log_level level, const char *format, ...);
+    void write_log(const char* file_name, const char* tn_callbackname, int line_no, log_level level, const char *format, ...);
 
     void flush(void);
 
@@ -88,7 +90,7 @@ private:
     buffer_queue<string> *l_buffer_queue = nullptr;
     bool l_is_async; 
     bool l_is_stdout = false;
-    bool is_thread_stop = false;
+    atomic<bool> is_thread_stop = false;
     mutex l_mutex;              // TODO: add mutexes for different critical resources
     thread *l_asyncw_thread = nullptr;
 };
