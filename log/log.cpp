@@ -90,8 +90,7 @@ Logger::~Logger()
     {
         PR_ERROR("file name must be less than 128 bytes!\n");
         // exit(-1);
-        invalid_argument ex("file name must be less than 128 bytes!");
-        throw exception(ex);
+        throw invalid_argument("file name must be less than 128 bytes!");;
     }
 
     set_log_level(level);
@@ -151,7 +150,7 @@ Logger::~Logger()
     return true;
 }
 
-void Logger::write_log(const char* file_name, const char* func_name, int line_no, log_level level, const char *format, ...)
+void Logger::write_log(const char* file_name, const char* tn_callbackname, int line_no, log_level level, const char *format, ...)
 {
     my_time my_tm = get_current_sys_time();
 
@@ -193,7 +192,7 @@ void Logger::write_log(const char* file_name, const char* func_name, int line_no
         int n = snprintf(l_buf, 300, "%04d-%02d-%02d %02d:%02d:%02d %s [%s:%s:%d] ",
                         my_tm.year, my_tm.month, my_tm.day,
                             my_tm.hour, my_tm.minute, my_tm.second, LogLevelName[level],
-                            file_name, func_name, line_no);
+                            file_name, tn_callbackname, line_no);
         
         int m = vsnprintf(l_buf + n, l_buf_size - 1, format, valst);
         l_buf[n + m] = '\n';
@@ -205,7 +204,7 @@ void Logger::write_log(const char* file_name, const char* func_name, int line_no
 
     if (l_is_async)
     {
-        while (!l_buffer_queue->push(log_str) && !is_thread_stop)   //FIXME: use cond_var replacing busy loop
+        while (!l_buffer_queue->push(log_str) && !is_thread_stop)   //FIXME: use tm_condvar replacing busy loop
         {               
         }
         

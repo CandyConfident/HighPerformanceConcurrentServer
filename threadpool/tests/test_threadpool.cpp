@@ -54,7 +54,7 @@ public:
 		return n;
 	}
 
-	static string cls_static_tn_callbackstr(int n, string str) {
+	static string_view cls_static_tn_callbackstr(int n, string_view str) {
         long long tid = tid_to_ll(this_thread::get_id()); 
         LOG_INFO("[tid:%lld]  hello, cls_static_tn_callbackstr !\n", tid);
 		return str;
@@ -81,7 +81,7 @@ int main()
         int param_cls_tn_callbackint = 999;
 		auto cls_tn_callbackint = th_pool.post_task(stc_func.cls_static_tn_callbackint, param_cls_tn_callbackint);
 
-        const char *param_cls_tn_callbackstr = "multi args";
+        string_view param_cls_tn_callbackstr("multi args");
 		auto cls_tn_callbackstr = th_pool.post_task(cls_static_func::cls_static_tn_callbackstr, rnd(), param_cls_tn_callbackstr);
 
 		auto lmda_func = th_pool.post_task([]()->string {
@@ -103,7 +103,7 @@ int main()
 
         auto ret_strc_func = strc_func.get();
         auto ret_cls_tn_callbackint = cls_tn_callbackint.get();
-        auto ret_cls_tn_callbackstr1 = cls_tn_callbackstr.get().c_str();
+        auto ret_cls_tn_callbackstr1 = cls_tn_callbackstr.get();
 
         LOG_INFO("[tid:%lld] ret_val of struct_func: %d\n", tid, ret_strc_func);
         assert(ret_strc_func == param_strc_func);
@@ -111,8 +111,8 @@ int main()
         LOG_INFO("[tid:%lld] ret_val of cls_tn_callbackint: %d\n", tid, ret_cls_tn_callbackint);
         assert(ret_cls_tn_callbackint == param_cls_tn_callbackint);
 
-        LOG_INFO("[tid:%lld] ret_val of cls_tn_callbackstr: %s", tid, ret_cls_tn_callbackstr1);
-        assert(*ret_cls_tn_callbackstr1 == *param_cls_tn_callbackstr); 
+        LOG_INFO("[tid:%lld] ret_val of cls_tn_callbackstr: %s", tid, ret_cls_tn_callbackstr1.data());
+        assert(ret_cls_tn_callbackstr1 == param_cls_tn_callbackstr); 
 
 		LOG_INFO("[tid:%lld] =======  sleep ========= \n", tid);
 		this_thread::sleep_for(chrono::seconds(3));
