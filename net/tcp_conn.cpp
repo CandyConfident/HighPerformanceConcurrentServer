@@ -9,6 +9,7 @@
 #include "tcp_server.h"
 #include "event_loop.h"
 #include "../log/pr.h"
+#include "../log/log.h"
 
 using namespace std;
 
