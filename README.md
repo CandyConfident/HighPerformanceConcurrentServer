@@ -14,6 +14,5 @@
 > * http解析设计与实现
 > * 数据库连接池及缓存设计与实现
 > * C++20模块与协程引入
-> * 日志优化：参考Nanolog设计，引入日志压缩、无锁队列、寄存器记录时间、减少缓存miss等方案
-
-&emsp;&emsp;[Nanolog github源码地址](https://github.com/PlatformLab/NanoLog)
+> * 日志优化：参考[Nanolog](https://github.com/PlatformLab/NanoLog)设计，引入日志压缩、无锁队列、寄存器记录时间、减少缓存miss等方案
+> * 使用lua脚本语言，配置服务器ip、port，并检查参数合法性
