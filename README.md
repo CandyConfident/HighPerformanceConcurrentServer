@@ -16,3 +16,4 @@
 > * C++20模块与协程引入
 > * 日志优化：参考[Nanolog](https://github.com/PlatformLab/NanoLog)设计，引入日志压缩、无锁队列、寄存器记录时间、减少缓存miss等方案
 > * 使用lua脚本语言，配置服务器ip、port，并检查参数合法性
+> * 引入gtest测试框架，整合单元测试
