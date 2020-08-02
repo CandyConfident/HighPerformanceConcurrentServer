@@ -14,7 +14,7 @@ void Mempool::mem_init(MEM_CAP size, int chunk_num)
     prev = mp_pool[size];
 
     for (int i = 1; i < chunk_num; i ++) {
-        prev->next = new Chunk(size);
+        prev->next = new (std::nothrow)Chunk(size);
         if (prev->next == nullptr) {
             PR_ERROR("new chunk m4K error");
             exit(1);
